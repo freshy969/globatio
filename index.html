@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<link rel="stylesheet" href="styles.css">
+<head>
+	<meta charset="UTF-8">
+	<!title><!Hello World><!/title>
+</head>
+<body>
+	<div class="navigation">
+		<li><a class="active" href="index.html">Home</a></li>
+		<li><a href="basket.html">Basket</a></li>
+		<li><a href="profile.html">Profile</a></li>
+		<li><a href="settings.html">Settings</a></li>
+		<li><a href="about.html">About</a></li>
+	</div>
+<div class="search-navigation">
+<!img class="title" src="icons/title.png" style="height: 100%;">
+
+<div class="search-container" href="index.html">
+<form action="javascript:executeSearch()" id="searchbox-id">
+		<input type="text" placeholder="Search .." name="fname" >
+		<button type="submit" style="height: 32px">
+			<i class="fas fa-search"></i>
+		</button>
+</form>
+</div>
+</div>
+
+<!p><!Sort by><!select id="id-sortselect">
+  <!option value="distance"><!Nearest><!/option>
+<!/select>
+<!button onclick="sortResults()"><! Ok ><!/button>
+<!/p>
+
+
+<p id="main-greeting"> </p>
+<!--------------------------------------------------------------------------->
+
+
+
+	<!i class="fas fa-heart"><!/i>
+	<ul id="searchresultsitemslist-id"></ul>
+	<script>
+//require('events').EventEmitter.defaultMaxListeners = 150;
+	const {ipcRenderer} = require('electron') 
+
+	var searchresultsitemscopy=[]
+	var searchboxtext
+	var counter=0
+//	var items = ["item1", "item2", "item3"]
+
+	refresh()
+
+	setInterval(function(){
+		refresh()
+	}, 5000);
+
+	//-----------------------------------------------------
+	//-----------------------------------------------------
+	//-----------------------------------------------------
+	function refresh(){
+		ipcRenderer.send('asynchronous-refresh-searchresults')
+
+			ipcRenderer.on('asynchronous-refresh-searchresults-reply', (event, arg) => {
+			searchresultsitemscopy=arg
+			//counter+=1;
+			//items.push("item"+counter.toString())
+
+
+			refreshSearchResultsList();
+			})
+
+	}
+	//-----------------------------------------------------
+	function executeSearch(){
+
+		//searchStarted=true
+
+		//var searchboxtext=document.getElementById("searchbox-id").elements[0].value
+		searchboxtext=document.getElementById("searchbox-id").elements[0].value
+		if ((searchboxtext!=='')&&(searchboxtext!==undefined)){
+		ipcRenderer.send('asynchronous-request-search',searchboxtext)
+
+			ipcRenderer.on('asynchronous-request-search-reply', (event, arg) => {
+				searchresultsitemscopy=arg
+				//expandvalue=-1
+				//document.getElementById("main-greeting").innerHTML = "Searching for "+searchboxtext //+expandvalue;//searchresultscopy.length
+
+				//displaySearch()
+			})
+		}
+	//return false
+	}
+	//-----------------------------------------------------
+	function refreshSearchResultsList(){
+
+ 		//---------------------------------------
+
+		//if (searchresultsitemscopy.length>0) {
+
+			var itemslist =document.getElementById('searchresultsitemslist-id')
+			var itemnum=0
+			var newitemslist=document.createElement('ul')
+			searchresultsitemscopy.forEach(function(item){
+				var li = document.createElement("li");
+				li.id = itemnum.toString();
+
+				var tbl     = document.createElement("table");
+        		var tblBody = document.createElement("tbody")
+				var row = document.createElement("tr");
+
+				var cell = document.createElement("td");  
+				var inputValue = item.description.toString();
+				var inputValueText=inputValue.split('\n')
+					if(inputValueText[0].length>0){         
+           cell.appendChild(document.createTextNode(inputValueText[0]));
+         	}
+         	for(var i=1;i<inputValueText.length;i++){
+            cell.appendChild(document.createElement('BR'));
+            if(inputValueText[i].length>0){
+              cell.appendChild(document.createTextNode(inputValueText[i]));
+            }
+         }
+
+				cell.setAttribute("style", "display: inline-block;");
+				row.appendChild(cell);
+				tblBody.appendChild(row);
+			//-------------------------------------------------
+				
+				
+							tbl.appendChild(tblBody);
+							tbl.setAttribute("border", "0");
+			//-----------------------------------------------	
+				
+
+				//li.appendChild(document.createTextNode(item.description));
+
+				li.appendChild(tbl);
+						newitemslist.appendChild(li);
+				itemnum+=1
+			});
+
+			itemslist.innerHTML=newitemslist.innerHTML;
+			for (var i=0; i < itemslist.childNodes.length; i++) {
+				var buttonscell = document.createElement("td");
+
+				var addbasketbtn = document.createElement("BUTTON");
+				var addbaskettext = document.createTextNode("Add to basket");
+				addbasketbtn.appendChild(addbaskettext);
+				buttonscell.appendChild(addbasketbtn);
+				itemslist.childNodes[i].appendChild(buttonscell)
+		 		
+				buttonscell.addEventListener("click", function(ev) {
+				var div = this.parentElement;
+				//var div = (((this.parentElement).parentElement).parentElement).parentElement;
+						// div.style.display = "none";
+				ipcRenderer.send('asynchronous-addbasketitem',div.id)
+				}, false);
+
+
+			}
+		//}	
+	}
+
+
+
+		</script>
+  </body>
+</html>

@@ -1,0 +1,223 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+@import "./node_modules/@fortawesome/fontawesome-free/css/all.css";
+
+body {
+  position: relative;
+  color: black;
+  background-color: #232c39;
+  background-image: linear-gradient(45deg, rgb(240, 240, 240) , rgb(255, 255, 255));
+  font-family: Arial, Helvetica, Helvetica Neue, serif;
+}
+/*
+h2 {
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: bold;
+  letter-spacing: -0.025em;
+  color: orange;
+}
+
+p {
+  font-size: 24px;
+}
+
+*/
+.navigation {
+float : center;
+text-align: center;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+.navigation li {
+  list-style-type: none;  
+    float: left;
+}
+
+.navigation li a {
+  
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navigation li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px;
+}
+
+.close:hover {
+  cursor: pointer;
+  background-color: #f44336;
+  color: white;
+}
+
+.navigation .active {
+    background-color: #FF8000;
+}
+
+.search-navigation {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+}
+
+.search-navigation .title {
+width: 25%;
+ padding: 6px;
+  margin-top: 8px;
+}
+
+.search-navigation .search-container {
+  float: right;
+}
+
+.search-navigation .search-container input[type=text] {
+  border: 1px solid;
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 15px;
+  width: 200px;
+}
+
+
+.search-navigation .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+.search-navigation .search-container .search-icon {
+  width: auto;
+  height: 17px;
+}
+.search-navigation .search-container button:hover {
+  background: #ccc;
+}
+
+
+/*
+li {
+    text-align: left;
+    list-style: none;
+}
+
+
+li a {
+    display: block;
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}*/
+
+/*.directorylink {
+  color: black;
+  background-color: transparent;
+  text-decoration: none;
+}*/
+
+/*------------------------------------------------------*/
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* Style the list items */
+ul li {
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  list-style-type: none;
+  background: #eee;
+  font-size: 18px;
+  transition: 0.2s;
+  
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+ul li:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+/* When clicked on, add a background color and strike out text */
+ul li.checked {
+  background: #888;
+  color: #fff;
+  text-decoration: line-through;
+}
+
+/* Add a "checked" mark when clicked on */
+ul li.checked::before {
+  content: '';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
+
+ul li a {
+  color: black;
+  background-color: transparent;
+  text-decoration: none;
+}
+li a:hover:not(.active) {
+  background-color: transparent;
+}
+
+.addItem {
+  padding: 10px;
+  width: 25%;
+  background: #d9d9d9;
+  color: #555;
+  float: left;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 0;
+}
+
+.addItem:hover {
+  background-color: #bbb;
+}
+
+/*------------------------------------------------------*/
+/*
+a {
+  color: orange;
+  opacity: 0.75;
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 1;
+  text-decoration: none;
+  cursor: pointer;
+}*/
