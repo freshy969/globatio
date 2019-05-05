@@ -14,11 +14,11 @@
   "author": "GitHub",
   "license": "MIT",
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.8.1",
     "electron": "^4.1.4",
     "electron-packager": "^13.1.1"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.8.1",
     "dat-swarm-defaults": "^1.0.2",
     "discovery-swarm": "^5.1.4",
     "get-port": "^5.0.0",
