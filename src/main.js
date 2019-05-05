@@ -151,7 +151,7 @@ function createWindow () {
 app.on('ready', function(){
 
   createWindow()
-  //globatio.start()
+  globatio.start()
   globatio.loadState(statefile)
   
   setTimeout(function (){
