@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+  <link rel="stylesheet" href="styles.css">
+<style>
+/* Style the input */
+textarea {
+  margin: 0;
+  border: solid;
+  border-radius: 0;
+  border-width: 1px;
+  width: 75%;
+  padding: 10px;
+  float: left;
+  font-size: 16px;
+}
+/* Style the "Add" button */
+/*.addItem {
+  padding: 10px;
+  width: 25%;
+  background: #d9d9d9;
+  color: #555;
+  float: left;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 0;
+}
+
+.addItem:hover {
+  background-color: #bbb;
+}*/
+</style>
+
+<head>
+</head>
+<body>
+	<div class="navigation">
+		<li><a href="index.html">Home</a></li>
+		<li><a href="basket.html">Basket</a></li>
+		<li><a class="active" href="profile.html">Profile</a></li>
+		<li><a href="settings.html">Settings</a></li>
+		<li><a href="about.html">About</a></li>
+	</div>
+
+
+
+ <!input type="text" id="addItemInput" placeholder="Title...">
+<form id="id-additemdescription" >
+    <!input id="mydirectory" type="directory" webkitdirectory />
+<textarea name="textarea" placeholder="Description..." style="width:95%;height:120px;"></textarea>
+
+<!input type="file" name="imgfileinput" accept=".jpg, .jpeg, .png" single>
+
+
+<table style="width:98%;border-style: dotted;">
+  <td>
+<div id="holder" class="dropzone">
+  <p>  Here drag attached files  </p>
+  </div>
+<!p id="id-selectedimage"><!/p>
+<p id="id-selectedfiles"></p>
+  </td>
+</table>
+
+
+<!br>
+  <span  class="addItem" onclick="addItem()" style="cursor: pointer;">Ok</span>
+
+</form>
+<script>
+const {ipcRenderer} = require('electron') 
+
+//---------------------------------------
+    document.addEventListener('drop', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+var filelocation
+for (var tempint=0; tempint<e.dataTransfer.files.length;tempint++){
+	filelocation=e.dataTransfer.files[tempint].path
+	/*if ((filelocation.search('jpg')>0)||(filelocation.search('png')>0)||(filelocation.search('gif')>0))
+	{
+	document.getElementById("id-selectedimage").innerHTML =filelocation
+	} else{*/
+	if (document.getElementById("id-selectedfiles").innerHTML!=''){
+		document.getElementById("id-selectedfiles").innerHTML +='     '+filelocation
+		} else {
+		document.getElementById("id-selectedfiles").innerHTML +=filelocation
+		}
+	//}
+
+}
+
+
+    });
+    document.addEventListener('dragover', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+//---------------------------------
+//---------------------------------
+function addItem() {
+
+var newitemdescription =document.getElementById("id-additemdescription").elements[0].value
+//var newitemcover =document.getElementById("id-selectedimage").innerHTML;
+//var newattachedfiles =document.getElementById("id-selectedfiles").innerHTML;
+//var newattachedfiles = document.getElementById("id-selectedfiles").innerHTML//.replace("   ", ";");
+var newattachedfiles = document.getElementById("id-selectedfiles").innerHTML//.replace("   ", ";");
+if (newitemdescription !=''){
+window.location.href="profile.html"
+	//if (newitemcover !=''){
+		//ipcRenderer.send('asynchronous-addfilerequest',newitemcover)
+
+		//ipcRenderer.on('asynchronous-addfilerequest-reply', (event, arg) => {
+
+		//ipcRenderer.send('asynchronous-addattachedfilesrequest',newattachedfiles)
+
+			//ipcRenderer.on('asynchronous-addattachedfilesrequest-reply', (event, argattachement) => {
+
+			//var attachement='numberfiles'+';'+'datlink'+';'+'filesnames'+';'
+	
+			//ipcRenderer.send('asynchronous-addprofileitem',newitemdescription+';'+arg+newattachedfiles)
+      ipcRenderer.send('asynchronous-addprofileitem',newitemdescription+';'+newattachedfiles)
+			//})
+
+		//})
+	//} else {
+	//ipcRenderer.send('asynchronous-additem',newitemdescription+';'+';'+';')
+	//}
+
+}
+
+
+}
+</script>
+
+
+
+</body>
+</html>
